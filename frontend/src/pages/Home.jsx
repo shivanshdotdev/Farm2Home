@@ -207,7 +207,7 @@ const Home = () => {
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
             <Link to="/explore">
-              <Button size="lg" className="w-full sm:w-auto bg-white text-primary-700 hover:bg-gray-50 border border-transparent">
+              <Button variant="outline" size="lg" className="w-full sm:w-auto text-white border-white hover:bg-primary-700 hover:text-white">
                 Explore Products
               </Button>
             </Link>
