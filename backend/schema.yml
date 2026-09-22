@@ -1,0 +1,1798 @@
+openapi: 3.0.3
+info:
+  title: Dhwaj Direct Farmer-to-Consumer API
+  version: 1.0.0
+  description: 'Backend API for Dhwaj - Smart India Hackathon 2026. Features: UIDAI
+    Aadhaar OTP, DigiLocker OAuth 2.0, AgriStack / KCC / Bhulekh Farmer Verification,
+    Government MSP Price Floor Enforcement, Tazapay / Razorpay Escrow, Porter / Delhivery
+    Logistics Calculation, Dispute Fault Matrix with mandatory unboxing video proof,
+    and WhatsApp Support Bot.'
+paths:
+  /:
+    get:
+      operationId: root_retrieve
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/:
+    get:
+      operationId: api_retrieve
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/auth/aadhaar/gen-otp/:
+    post:
+      operationId: api_auth_aadhaar_gen_otp_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AadhaarGenOtp'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AadhaarGenOtp'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AadhaarGenOtp'
+        required: true
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/auth/aadhaar/verify-otp/:
+    post:
+      operationId: api_auth_aadhaar_verify_otp_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AadhaarVerifyOtp'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AadhaarVerifyOtp'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AadhaarVerifyOtp'
+        required: true
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/auth/digilocker/callback/:
+    post:
+      operationId: api_auth_digilocker_callback_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DigiLockerCallback'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/DigiLockerCallback'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/DigiLockerCallback'
+        required: true
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/auth/digilocker/url/:
+    get:
+      operationId: api_auth_digilocker_url_retrieve
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/auth/login/:
+    post:
+      operationId: api_auth_login_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserLogin'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserLogin'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UserLogin'
+        required: true
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/auth/me/:
+    get:
+      operationId: api_auth_me_retrieve
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfile'
+          description: ''
+  /api/auth/register/:
+    post:
+      operationId: api_auth_register_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRegistration'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/UserRegistration'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/UserRegistration'
+        required: true
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfile'
+          description: ''
+  /api/farmer/profile/:
+    get:
+      operationId: api_farmer_profile_retrieve
+      description: |-
+        GET /api/farmer/profile/
+        Retrieves current authenticated farmer's verification badge and status.
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FarmerProfile'
+          description: ''
+  /api/farmer/verify/:
+    post:
+      operationId: api_farmer_verify_create
+      description: |-
+        POST /api/farmer/verify/
+        Verifies farmer identity via AgriStack, Kisan Credit Card (KCC), or Bhulekh (DILRMP).
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FarmerVerificationRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/FarmerVerificationRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/FarmerVerificationRequest'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FarmerProfile'
+          description: ''
+  /api/listings/:
+    get:
+      operationId: api_listings_list
+      description: |-
+        GET /api/listings/
+        Consumers browse and search listings with category/crop filters and geo-matching proximity.
+      parameters:
+      - in: query
+        name: category
+        schema:
+          type: string
+        description: Filter by category (GRAINS, PULSES, etc.)
+      - in: query
+        name: crop
+        schema:
+          type: string
+        description: Filter by crop name (e.g. Wheat)
+      - in: query
+        name: lat
+        schema:
+          type: number
+          format: double
+        description: User latitude for geo-matching
+      - in: query
+        name: lon
+        schema:
+          type: number
+          format: double
+        description: User longitude for geo-matching
+      - in: query
+        name: max_price
+        schema:
+          type: number
+          format: double
+        description: Filter by max price per kg
+      - in: query
+        name: pincode
+        schema:
+          type: string
+        description: Filter by farm pincode
+      - in: query
+        name: radius_km
+        schema:
+          type: number
+          format: double
+        description: Max radius in km for local produce
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProductListingDetail'
+          description: ''
+  /api/listings/{id}/:
+    get:
+      operationId: api_listings_retrieve
+      description: |-
+        GET /api/listings/{id}/
+        Retrieves full details for a specific listing including verified farmer badge.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductListingDetail'
+          description: ''
+  /api/listings/create/:
+    post:
+      operationId: api_listings_create_create
+      description: |-
+        POST /api/listings/create/
+        Creates a new produce listing. Strictly validates and enforces Government MSP price floor.
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductListingCreate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/ProductListingCreate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/ProductListingCreate'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductListingDetail'
+          description: ''
+  /api/listings/my/:
+    get:
+      operationId: api_listings_my_list
+      description: |-
+        GET /api/listings/my/
+        Returns all product listings published by the authenticated farmer.
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ProductListingDetail'
+          description: ''
+  /api/logistics/quote/:
+    get:
+      operationId: api_logistics_quote_retrieve
+      description: |-
+        GET /api/logistics/quote/
+        Calculates live logistics rates across Porter and Delhivery APIs based on weight and pincodes.
+      parameters:
+      - in: query
+        name: destination_pincode
+        schema:
+          type: string
+          maxLength: 10
+          minLength: 1
+        required: true
+      - in: query
+        name: origin_pincode
+        schema:
+          type: string
+          maxLength: 10
+          minLength: 1
+        required: true
+      - in: query
+        name: partner
+        schema:
+          enum:
+          - DELHIVERY
+          - PORTER
+          - DIRECT_PICKUP
+          type: string
+          default: DELHIVERY
+          minLength: 1
+        description: |-
+          * `DELHIVERY` - Delhivery Surface & Express
+          * `PORTER` - Porter Intra-City Mini Truck
+          * `DIRECT_PICKUP` - Direct Farm Pickup
+      - in: query
+        name: weight_kg
+        schema:
+          type: number
+          format: double
+          minimum: 0.5
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/msp/:
+    get:
+      operationId: api_msp_list
+      description: |-
+        GET /api/msp/
+        Public master list of Government Minimum Support Prices (MSP) for crops.
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedGovernmentMSPList'
+          description: ''
+  /api/orders/{id}/:
+    get:
+      operationId: api_orders_retrieve
+      description: |-
+        GET /api/orders/{id}/
+        Common endpoint: retrieves details of a specific order.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderDetail'
+          description: ''
+  /api/orders/{id}/dispute/:
+    post:
+      operationId: api_orders_dispute_create
+      description: |-
+        POST /api/orders/{id}/dispute/
+        Raises an order dispute with mandatory unboxing video proof and triggers fault matrix evaluation.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderDisputeCreate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/OrderDisputeCreate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/OrderDisputeCreate'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderDisputeDetail'
+          description: ''
+  /api/orders/{id}/dispute/detail/:
+    get:
+      operationId: api_orders_dispute_detail_retrieve
+      description: |-
+        GET /api/orders/{id}/dispute/
+        Inspects the status and fault matrix resolution for an order dispute.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderDisputeDetail'
+          description: ''
+  /api/orders/{id}/status/:
+    put:
+      operationId: api_orders_status_update
+      description: |-
+        PUT /api/orders/{id}/status/
+        Common endpoint: updates order status along the lifecycle state machine.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderStatusUpdate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/OrderStatusUpdate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/OrderStatusUpdate'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderDetail'
+          description: ''
+  /api/orders/create/:
+    post:
+      operationId: api_orders_create_create
+      description: |-
+        POST /api/orders/create/
+        Creates a new direct produce order: calculates logistics, deducts stock, and locks funds in Escrow.
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrderCreate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/OrderCreate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/OrderCreate'
+        required: true
+      security:
+      - jwtAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrderDetail'
+          description: ''
+  /api/orders/my/:
+    get:
+      operationId: api_orders_my_list
+      description: |-
+        GET /api/orders/my/
+        Retrieves order history: sales orders if Farmer, purchase orders if Consumer.
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/OrderDetail'
+          description: ''
+  /api/schemes/:
+    get:
+      operationId: api_schemes_list
+      description: |-
+        GET /api/schemes/
+        Public feed of Government Schemes (PM-KISAN, AgriStack, PMFBY, Soil Health Card).
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedGovernmentSchemeList'
+          description: ''
+  /api/support/tickets/:
+    get:
+      operationId: api_support_tickets_list
+      description: |-
+        GET /api/support/tickets/
+        Retrieves support tickets for authenticated user or all tickets for admin.
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedSupportTicketList'
+          description: ''
+  /api/support/whatsapp/:
+    get:
+      operationId: api_support_whatsapp_retrieve
+      description: |-
+        Webhook endpoint for WhatsApp Business API.
+        GET: Webhook verification challenge from Meta/WhatsApp Cloud.
+        POST: Processes incoming message and triggers Bot AutoReply.
+      tags:
+      - api
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: string
+          description: ''
+    post:
+      operationId: api_support_whatsapp_create
+      description: |-
+        Webhook endpoint for WhatsApp Business API.
+        GET: Webhook verification challenge from Meta/WhatsApp Cloud.
+        POST: Processes incoming message and triggers Bot AutoReply.
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WhatsAppWebhook'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/WhatsAppWebhook'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/WhatsAppWebhook'
+      security:
+      - jwtAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+components:
+  schemas:
+    AadhaarGenOtp:
+      type: object
+      properties:
+        aadhaar_number:
+          type: string
+          maxLength: 14
+          minLength: 12
+        phone_number:
+          type: string
+          maxLength: 15
+        role:
+          allOf:
+          - $ref: '#/components/schemas/RoleEnum'
+          default: CONSUMER
+      required:
+      - aadhaar_number
+      - phone_number
+    AadhaarVerifyOtp:
+      type: object
+      properties:
+        session_token:
+          type: string
+        otp_code:
+          type: string
+          maxLength: 6
+          minLength: 6
+        full_name:
+          type: string
+          default: Verified Citizen
+      required:
+      - otp_code
+      - session_token
+    Category8fbEnum:
+      enum:
+      - GRAINS
+      - PULSES
+      - OILSEEDS
+      - VEGETABLES
+      - FRUITS
+      - COMMERCIAL
+      type: string
+      description: |-
+        * `GRAINS` - Cereals & Grains
+        * `PULSES` - Pulses & Legumes
+        * `OILSEEDS` - Oilseeds
+        * `VEGETABLES` - Vegetables
+        * `FRUITS` - Fruits
+        * `COMMERCIAL` - Commercial & Cash Crops
+    ChannelEnum:
+      enum:
+      - WHATSAPP
+      - WEB
+      type: string
+      description: |-
+        * `WHATSAPP` - WhatsApp Business Bot
+        * `WEB` - Web / App Portal
+    DigiLockerCallback:
+      type: object
+      properties:
+        code:
+          type: string
+        phone_number:
+          type: string
+          nullable: true
+        role:
+          allOf:
+          - $ref: '#/components/schemas/RoleEnum'
+          default: CONSUMER
+        full_name:
+          type: string
+          default: DigiLocker Citizen
+      required:
+      - code
+    DisputeReasonEnum:
+      enum:
+      - SPOILED_PRODUCE
+      - WEIGHT_SHORTFALL
+      - QUALITY_MISREPRESENTATION
+      - TRANSIT_DAMAGE
+      - INCORRECT_ITEM
+      type: string
+      description: |-
+        * `SPOILED_PRODUCE` - Spoiled or Rotten Produce
+        * `WEIGHT_SHORTFALL` - Weight Shortfall / Discrepancy
+        * `QUALITY_MISREPRESENTATION` - Quality Misrepresentation / Lower Grade
+        * `TRANSIT_DAMAGE` - Transit Mishandling or Physical Damage
+        * `INCORRECT_ITEM` - Incorrect Produce Delivered
+    EscrowProviderEnum:
+      enum:
+      - TAZAPAY
+      - RAZORPAY_ESCROW
+      type: string
+      description: |-
+        * `TAZAPAY` - TAZAPAY
+        * `RAZORPAY_ESCROW` - RAZORPAY_ESCROW
+    EscrowTransaction:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        provider:
+          type: string
+          maxLength: 50
+        escrow_reference_id:
+          type: string
+          maxLength: 100
+        amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+        status:
+          $ref: '#/components/schemas/EscrowTransactionStatusEnum'
+        buyer_paid_at:
+          type: string
+          format: date-time
+          nullable: true
+        released_at:
+          type: string
+          format: date-time
+          nullable: true
+        refunded_at:
+          type: string
+          format: date-time
+          nullable: true
+        refunded_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+      required:
+      - amount
+      - escrow_reference_id
+      - id
+    EscrowTransactionStatusEnum:
+      enum:
+      - INITIATED
+      - LOCKED_IN_ESCROW
+      - RELEASED_TO_FARMER
+      - REFUNDED_TO_BUYER
+      - PARTIALLY_REFUNDED
+      type: string
+      description: |-
+        * `INITIATED` - Initiated
+        * `LOCKED_IN_ESCROW` - Funds Locked in Escrow
+        * `RELEASED_TO_FARMER` - Released to Farmer
+        * `REFUNDED_TO_BUYER` - Refunded to Buyer
+        * `PARTIALLY_REFUNDED` - Partially Refunded via Fault Matrix
+    FarmerProfile:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        phone_number:
+          type: string
+          readOnly: true
+        farmer_name:
+          type: string
+          readOnly: true
+        verification_type:
+          $ref: '#/components/schemas/VerificationTypeEnum'
+        agristack_id:
+          type: string
+          nullable: true
+          maxLength: 50
+        kcc_number:
+          type: string
+          nullable: true
+          maxLength: 50
+        land_record_khata:
+          type: string
+          nullable: true
+          maxLength: 50
+        land_owner_name:
+          type: string
+          nullable: true
+          maxLength: 255
+        land_holding_acres:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,5}(?:\.\d{0,2})?$
+        state:
+          type: string
+          nullable: true
+          maxLength: 100
+        district:
+          type: string
+          nullable: true
+          maxLength: 100
+        tehsil:
+          type: string
+          nullable: true
+          maxLength: 100
+        village:
+          type: string
+          nullable: true
+          maxLength: 100
+        is_verified:
+          type: boolean
+          readOnly: true
+        verified_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        verification_badge_id:
+          type: string
+          readOnly: true
+          nullable: true
+        verification_meta: {}
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - farmer_name
+      - id
+      - is_verified
+      - phone_number
+      - verification_badge_id
+      - verified_at
+    FarmerVerificationRequest:
+      type: object
+      properties:
+        verification_method:
+          $ref: '#/components/schemas/VerificationMethodEnum'
+        agristack_id:
+          type: string
+        kcc_number:
+          type: string
+        bank_ifsc:
+          type: string
+          default: SBIN0001234
+        state:
+          type: string
+          default: Uttar Pradesh
+        district:
+          type: string
+        tehsil:
+          type: string
+        khata_number:
+          type: string
+        khasra_plot:
+          type: string
+        land_owner_name:
+          type: string
+      required:
+      - verification_method
+    FaultPartyEnum:
+      enum:
+      - FARMER
+      - LOGISTICS
+      - CONSUMER
+      - SPLIT
+      - PENDING_ASSESSMENT
+      type: string
+      description: |-
+        * `FARMER` - Farmer Fault
+        * `LOGISTICS` - Logistics Carrier Fault
+        * `CONSUMER` - Consumer Error
+        * `SPLIT` - Shared Fault
+        * `PENDING_ASSESSMENT` - Pending Assessment
+    GovernmentMSP:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        crop_name:
+          type: string
+          maxLength: 100
+        category:
+          $ref: '#/components/schemas/Category8fbEnum'
+        msp_per_quintal:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          description: Government MSP in INR per quintal (100 kg)
+        msp_per_kg:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          description: Government MSP in INR per kg (msp_per_quintal / 100)
+        marketing_season:
+          type: string
+          maxLength: 50
+        is_active:
+          type: boolean
+      required:
+      - crop_name
+      - id
+      - msp_per_kg
+      - msp_per_quintal
+    GovernmentScheme:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        title:
+          type: string
+          maxLength: 255
+        category:
+          $ref: '#/components/schemas/GovernmentSchemeCategoryEnum'
+        description:
+          type: string
+        eligibility:
+          type: string
+        benefits_summary:
+          type: string
+        portal_url:
+          oneOf:
+          - type: string
+            format: uri
+            maxLength: 200
+          - type: string
+            maxLength: 0
+        is_active:
+          type: boolean
+        published_date:
+          type: string
+          format: date
+          readOnly: true
+      required:
+      - benefits_summary
+      - description
+      - eligibility
+      - id
+      - published_date
+      - title
+    GovernmentSchemeCategoryEnum:
+      enum:
+      - FINANCIAL_SUPPORT
+      - DIGITIZATION
+      - INSURANCE
+      - CREDIT
+      - SUBSIDY
+      type: string
+      description: |-
+        * `FINANCIAL_SUPPORT` - Direct Financial Support (PM-KISAN)
+        * `DIGITIZATION` - Digital Registries & Identity (AgriStack)
+        * `INSURANCE` - Crop Insurance & Risk Mitigation (PMFBY)
+        * `CREDIT` - Institutional Credit (KCC / JanSamarth)
+        * `SUBSIDY` - Inputs, Soil & Irrigation Subsidies
+    LogisticsPartnerEnum:
+      enum:
+      - DELHIVERY
+      - PORTER
+      - DIRECT_PICKUP
+      type: string
+      description: |-
+        * `DELHIVERY` - Delhivery Surface & Express
+        * `PORTER` - Porter Intra-City Mini Truck
+        * `DIRECT_PICKUP` - Direct Farm Pickup
+    OrderCreate:
+      type: object
+      properties:
+        listing_id:
+          type: string
+          format: uuid
+        quantity_kg:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        delivery_address:
+          type: string
+        buyer_pincode:
+          type: string
+          maxLength: 10
+        buyer_phone:
+          type: string
+          maxLength: 15
+        logistics_partner:
+          allOf:
+          - $ref: '#/components/schemas/LogisticsPartnerEnum'
+          default: DELHIVERY
+        escrow_provider:
+          allOf:
+          - $ref: '#/components/schemas/EscrowProviderEnum'
+          default: TAZAPAY
+      required:
+      - buyer_phone
+      - buyer_pincode
+      - delivery_address
+      - listing_id
+      - quantity_kg
+    OrderDetail:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        crop_name:
+          type: string
+          readOnly: true
+        farmer_name:
+          type: string
+          readOnly: true
+        farmer_phone:
+          type: string
+          readOnly: true
+        buyer_name:
+          type: string
+          readOnly: true
+        quantity_kg:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        unit_price_per_kg:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        produce_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+        logistics_partner:
+          $ref: '#/components/schemas/LogisticsPartnerEnum'
+        delivery_fee:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        total_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+        delivery_address:
+          type: string
+        buyer_pincode:
+          type: string
+          maxLength: 10
+        buyer_phone:
+          type: string
+          maxLength: 15
+        tracking_number:
+          type: string
+          nullable: true
+          maxLength: 50
+        status:
+          $ref: '#/components/schemas/Status28eEnum'
+        escrow:
+          allOf:
+          - $ref: '#/components/schemas/EscrowTransaction'
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - buyer_name
+      - buyer_phone
+      - buyer_pincode
+      - created_at
+      - crop_name
+      - delivery_address
+      - escrow
+      - farmer_name
+      - farmer_phone
+      - id
+      - produce_amount
+      - quantity_kg
+      - total_amount
+      - unit_price_per_kg
+    OrderDisputeCreate:
+      type: object
+      properties:
+        dispute_reason:
+          $ref: '#/components/schemas/DisputeReasonEnum'
+        video_proof_url:
+          type: string
+          format: uri
+          description: Mandatory continuous unboxing video proof link (e.g. S3/Supabase
+            Storage/Cloudinary URL)
+          maxLength: 200
+        description:
+          type: string
+          description: Detailed description of the issue observed
+        received_weight_kg:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          nullable: true
+          description: Weight measured upon unboxing (for WEIGHT_SHORTFALL claims)
+      required:
+      - description
+      - video_proof_url
+    OrderDisputeDetail:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        order_id:
+          type: string
+          format: uuid
+          readOnly: true
+        crop_name:
+          type: string
+          readOnly: true
+        buyer_name:
+          type: string
+          readOnly: true
+        dispute_reason:
+          $ref: '#/components/schemas/DisputeReasonEnum'
+        video_proof_url:
+          type: string
+          format: uri
+          description: Mandatory continuous unboxing video proof link (e.g. S3/Supabase
+            Storage/Cloudinary URL)
+          maxLength: 200
+        description:
+          type: string
+          description: Detailed description of the issue observed
+        received_weight_kg:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          nullable: true
+          description: Weight measured upon unboxing (for WEIGHT_SHORTFALL claims)
+        fault_party:
+          allOf:
+          - $ref: '#/components/schemas/FaultPartyEnum'
+          readOnly: true
+        refund_percentage:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
+          readOnly: true
+        refund_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+          readOnly: true
+        farmer_payout_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+          readOnly: true
+        status:
+          allOf:
+          - $ref: '#/components/schemas/OrderDisputeDetailStatusEnum'
+          readOnly: true
+        evaluation_notes:
+          type: string
+          readOnly: true
+        carrier_insurance_claimed:
+          type: boolean
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - buyer_name
+      - carrier_insurance_claimed
+      - created_at
+      - crop_name
+      - description
+      - evaluation_notes
+      - farmer_payout_amount
+      - fault_party
+      - id
+      - order_id
+      - refund_amount
+      - refund_percentage
+      - status
+      - video_proof_url
+    OrderDisputeDetailStatusEnum:
+      enum:
+      - SUBMITTED
+      - INVESTIGATING
+      - RESOLVED_FULL_REFUND
+      - RESOLVED_PARTIAL_REFUND
+      - RESOLVED_REJECTED
+      type: string
+      description: |-
+        * `SUBMITTED` - Submitted (Under Video Verification)
+        * `INVESTIGATING` - Fault Matrix Evaluation in Progress
+        * `RESOLVED_FULL_REFUND` - Resolved: Full Refund to Consumer
+        * `RESOLVED_PARTIAL_REFUND` - Resolved: Partial Refund Applied
+        * `RESOLVED_REJECTED` - Resolved: Claim Rejected (Escrow Released to Farmer)
+    OrderStatusUpdate:
+      type: object
+      properties:
+        status:
+          $ref: '#/components/schemas/Status28eEnum'
+        tracking_number:
+          type: string
+      required:
+      - status
+    PaginatedGovernmentMSPList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/GovernmentMSP'
+    PaginatedGovernmentSchemeList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/GovernmentScheme'
+    PaginatedSupportTicketList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/SupportTicket'
+    ProductListingCreate:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        crop_name:
+          type: string
+          maxLength: 100
+        category:
+          $ref: '#/components/schemas/Category8fbEnum'
+        variety:
+          type: string
+          maxLength: 100
+        description:
+          type: string
+        quantity_available_kg:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+        price_per_kg:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        harvest_date:
+          type: string
+          format: date
+          nullable: true
+        shelf_life_days:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        is_organic:
+          type: boolean
+        farm_pincode:
+          type: string
+          maxLength: 10
+        farm_district:
+          type: string
+          maxLength: 100
+        farm_state:
+          type: string
+          maxLength: 100
+        farm_latitude:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,3}(?:\.\d{0,6})?$
+          nullable: true
+        farm_longitude:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,3}(?:\.\d{0,6})?$
+          nullable: true
+        image_url:
+          oneOf:
+          - type: string
+            format: uri
+            maxLength: 200
+          - type: string
+            maxLength: 0
+      required:
+      - crop_name
+      - farm_pincode
+      - id
+      - price_per_kg
+      - quantity_available_kg
+    ProductListingDetail:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        crop_name:
+          type: string
+          maxLength: 100
+        category:
+          $ref: '#/components/schemas/Category8fbEnum'
+        variety:
+          type: string
+          maxLength: 100
+        description:
+          type: string
+        quantity_available_kg:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+        price_per_kg:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        msp_floor_applied:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          nullable: true
+        harvest_date:
+          type: string
+          format: date
+          nullable: true
+        shelf_life_days:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        is_organic:
+          type: boolean
+        farm_pincode:
+          type: string
+          maxLength: 10
+        farm_district:
+          type: string
+          maxLength: 100
+        farm_state:
+          type: string
+          maxLength: 100
+        farm_latitude:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,3}(?:\.\d{0,6})?$
+          nullable: true
+        farm_longitude:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,3}(?:\.\d{0,6})?$
+          nullable: true
+        image_url:
+          oneOf:
+          - type: string
+            format: uri
+            maxLength: 200
+          - type: string
+            maxLength: 0
+        is_active:
+          type: boolean
+        farmer_name:
+          type: string
+          readOnly: true
+        farmer_phone:
+          type: string
+          readOnly: true
+        is_farmer_verified:
+          type: boolean
+          readOnly: true
+        farmer_badge_id:
+          type: string
+          readOnly: true
+        distance_km:
+          type: number
+          format: double
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - crop_name
+      - distance_km
+      - farm_pincode
+      - farmer_badge_id
+      - farmer_name
+      - farmer_phone
+      - id
+      - is_farmer_verified
+      - price_per_kg
+      - quantity_available_kg
+    RoleEnum:
+      enum:
+      - FARMER
+      - CONSUMER
+      - ADMIN
+      type: string
+      description: |-
+        * `FARMER` - Farmer
+        * `CONSUMER` - Consumer
+        * `ADMIN` - Admin
+    Status28eEnum:
+      enum:
+      - PENDING
+      - ESCROW_FUNDED
+      - DISPATCHED
+      - IN_TRANSIT
+      - DELIVERED
+      - COMPLETED
+      - DISPUTED
+      - CANCELLED
+      - REFUNDED
+      type: string
+      description: |-
+        * `PENDING` - Pending Payment
+        * `ESCROW_FUNDED` - Escrow Funded (Funds Locked)
+        * `DISPATCHED` - Dispatched by Farmer
+        * `IN_TRANSIT` - In Transit (Logistics Courier)
+        * `DELIVERED` - Delivered to Customer
+        * `COMPLETED` - Completed (Funds Released to Farmer)
+        * `DISPUTED` - Disputed (Funds Frozen in Escrow)
+        * `CANCELLED` - Cancelled
+        * `REFUNDED` - Refunded
+    SupportTicket:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        ticket_number:
+          type: string
+          maxLength: 32
+        phone_number:
+          type: string
+          maxLength: 15
+        channel:
+          $ref: '#/components/schemas/ChannelEnum'
+        subject:
+          type: string
+          maxLength: 255
+        status:
+          $ref: '#/components/schemas/SupportTicketStatusEnum'
+        conversation_log: {}
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - id
+      - phone_number
+      - subject
+      - ticket_number
+    SupportTicketStatusEnum:
+      enum:
+      - OPEN
+      - BOT_RESOLVED
+      - ESCALATED_AGENT
+      - CLOSED
+      type: string
+      description: |-
+        * `OPEN` - Open
+        * `BOT_RESOLVED` - Resolved by Bot AutoReply
+        * `ESCALATED_AGENT` - Escalated to Support Officer
+        * `CLOSED` - Closed
+    UserLogin:
+      type: object
+      properties:
+        phone_number:
+          type: string
+        password:
+          type: string
+          writeOnly: true
+      required:
+      - password
+      - phone_number
+    UserProfile:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        phone_number:
+          type: string
+          maxLength: 15
+        full_name:
+          type: string
+          maxLength: 255
+        role:
+          $ref: '#/components/schemas/RoleEnum'
+        identity_hash:
+          type: string
+          readOnly: true
+          nullable: true
+          description: SHA-256 hashed national/Aadhaar identity with UNIQUE DB constraint
+        aadhaar_last4:
+          type: string
+          nullable: true
+          maxLength: 4
+        is_identity_verified:
+          type: boolean
+          readOnly: true
+          description: True if identity verified via Aadhaar OTP or DigiLocker
+        verification_source:
+          type: string
+          nullable: true
+          description: 'Source of identity verification: AADHAAR_OTP, DIGILOCKER,
+            AGRISTACK, etc.'
+          maxLength: 50
+        digilocker_id:
+          type: string
+          nullable: true
+          maxLength: 100
+        state:
+          type: string
+          nullable: true
+          maxLength: 100
+        district:
+          type: string
+          nullable: true
+          maxLength: 100
+        pincode:
+          type: string
+          nullable: true
+          maxLength: 10
+        address:
+          type: string
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - id
+      - identity_hash
+      - is_identity_verified
+      - phone_number
+    UserRegistration:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        phone_number:
+          type: string
+          maxLength: 15
+        password:
+          type: string
+          writeOnly: true
+          minLength: 6
+        full_name:
+          type: string
+          maxLength: 255
+        role:
+          $ref: '#/components/schemas/RoleEnum'
+        state:
+          type: string
+          nullable: true
+          maxLength: 100
+        district:
+          type: string
+          nullable: true
+          maxLength: 100
+        pincode:
+          type: string
+          nullable: true
+          maxLength: 10
+        address:
+          type: string
+          nullable: true
+      required:
+      - id
+      - password
+      - phone_number
+    VerificationMethodEnum:
+      enum:
+      - AGRISTACK
+      - KCC
+      - BHULEKH
+      type: string
+      description: |-
+        * `AGRISTACK` - AGRISTACK
+        * `KCC` - KCC
+        * `BHULEKH` - BHULEKH
+    VerificationTypeEnum:
+      enum:
+      - AGRISTACK
+      - KCC
+      - BHULEKH
+      type: string
+      description: |-
+        * `AGRISTACK` - AgriStack ID (State DB)
+        * `KCC` - Kisan Credit Card (Bank / C-DAC)
+        * `BHULEKH` - Bhulekh Record (DILRMP Land Registry)
+    WhatsAppWebhook:
+      type: object
+      description: |-
+        Standard incoming WhatsApp Business API message payload simulator/adapter.
+        Supports both direct format {phone, message} and WhatsApp Cloud API nested webhook format.
+      properties:
+        phone:
+          type: string
+        message:
+          type: string
+        entry:
+          type: array
+          items: {}
+        object:
+          type: string
+  securitySchemes:
+    jwtAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
