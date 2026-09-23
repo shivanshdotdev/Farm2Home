@@ -7,7 +7,7 @@ import EmptyState from '../components/EmptyState';
 import SectionHeading from '../components/SectionHeading';
 
 const Cart = () => {
-  const { cart, removeFromCart, updateQuantity, getCartTotal } = useAppContext();
+  const { cart, removeFromCart, updateCartQuantity, getCartTotal } = useAppContext();
 
   if (cart.length === 0) {
     return (
@@ -37,23 +37,23 @@ const Cart = () => {
             <div className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
               <ul className="divide-y divide-gray-100">
                 {cart.map((item) => (
-                  <li key={item.id} className="p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center">
-                    <Link to={`/product/${item.id}`} className="shrink-0 mb-4 sm:mb-0 sm:mr-6">
+                  <li key={item.product.id} className="p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center">
+                    <Link to={`/product/${item.product.id}`} className="shrink-0 mb-4 sm:mb-0 sm:mr-6">
                       <img 
-                        src={item.image} 
-                        alt={item.name} 
+                        src={item.product.image} 
+                        alt={item.product.name} 
                         className="w-full sm:w-24 h-24 object-cover rounded-xl"
                       />
                     </Link>
                     
                     <div className="flex-grow flex flex-col sm:flex-row sm:justify-between sm:items-center">
                       <div className="mb-4 sm:mb-0">
-                        <Link to={`/product/${item.id}`} className="text-lg font-bold text-gray-900 hover:text-primary-600 transition-colors">
-                          {item.name}
+                        <Link to={`/product/${item.product.id}`} className="text-lg font-bold text-gray-900 hover:text-primary-600 transition-colors">
+                          {item.product.name}
                         </Link>
-                        <p className="text-sm text-gray-500 mt-1">{item.farmer?.name}</p>
+                        <p className="text-sm text-gray-500 mt-1">{item.product.farmer?.name}</p>
                         <div className="text-primary-700 font-bold mt-2">
-                          ₹{item.price} <span className="text-sm font-normal text-gray-500">/ {item.unit}</span>
+                          ₹{item.product.price} <span className="text-sm font-normal text-gray-500">/ {item.product.unit}</span>
                         </div>
                       </div>
 
@@ -62,14 +62,14 @@ const Cart = () => {
                         <div className="flex items-center border border-gray-200 rounded-lg bg-gray-50">
                           <button 
                             className="p-2 text-gray-500 hover:text-primary-600 hover:bg-gray-100 transition-colors rounded-l-lg"
-                            onClick={() => updateQuantity(item.id, Math.max(1, item.quantity - 1))}
+                            onClick={() => updateCartQuantity(item.product.id, Math.max(1, item.quantity - 1))}
                           >
                             <Minus size={16} />
                           </button>
                           <span className="w-10 text-center font-semibold text-gray-900">{item.quantity}</span>
                           <button 
                             className="p-2 text-gray-500 hover:text-primary-600 hover:bg-gray-100 transition-colors rounded-r-lg"
-                            onClick={() => updateQuantity(item.id, item.quantity + 1)} // Assuming no stock limit for simplicity in UI, ideally checking availableQuantity
+                            onClick={() => updateCartQuantity(item.product.id, item.quantity + 1)} // Assuming no stock limit for simplicity in UI, ideally checking availableQuantity
                           >
                             <Plus size={16} />
                           </button>
@@ -77,10 +77,10 @@ const Cart = () => {
 
                         <div className="flex items-center space-x-4">
                           <div className="font-bold text-lg text-gray-900 w-20 text-right">
-                            ₹{item.price * item.quantity}
+                            ₹{item.product.price * item.quantity}
                           </div>
                           <button 
-                            onClick={() => removeFromCart(item.id)}
+                            onClick={() => removeFromCart(item.product.id)}
                             className="text-gray-400 hover:text-red-500 transition-colors p-2 rounded-full hover:bg-red-50"
                             aria-label="Remove item"
                           >
