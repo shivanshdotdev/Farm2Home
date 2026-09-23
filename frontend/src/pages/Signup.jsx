@@ -62,7 +62,7 @@ const Signup = () => {
                 onClick={() => handleVerify('aadhaar')}
                 className="w-full flex items-center justify-center px-4 py-3 border border-gray-300 shadow-sm text-sm font-medium rounded-xl text-gray-700 bg-white hover:bg-gray-50 transition-colors"
               >
-                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/c/cf/Aadhaar_Logo.svg/1200px-Aadhaar_Logo.svg.png" alt="Aadhaar" className="h-6 mr-3 object-contain" />
+                <img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/e/ee/Aadhaar.svg/500px-Aadhaar.svg.png?_=20250109072614" alt="Aadhaar" className="h-6 mr-3 object-contain" />
                 Continue with Aadhaar
               </button>
               
@@ -79,7 +79,7 @@ const Signup = () => {
                 onClick={() => handleVerify('digilocker')}
                 className="w-full flex items-center justify-center px-4 py-3 border border-gray-300 shadow-sm text-sm font-medium rounded-xl text-gray-700 bg-white hover:bg-gray-50 transition-colors"
               >
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/DigiLocker_logo.svg/1200px-DigiLocker_logo.svg.png" alt="DigiLocker" className="h-6 mr-3 object-contain" />
+                <img src="https://cdn.brandfetch.io/id8q-Titd1/w/180/h/180/theme/dark/logo.png?c=1dxbfHSJFAPEGdCLU4o5B" alt="DigiLocker" className="h-6 mr-3 object-contain" />
                 Continue with DigiLocker
               </button>
               

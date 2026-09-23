@@ -70,7 +70,7 @@ const Cart = () => {
                           <button 
                             className="p-2 text-gray-500 hover:text-primary-600 hover:bg-gray-100 transition-colors rounded-r-lg"
                             onClick={() => updateCartQuantity(item.product.id, item.quantity + 1)} // Assuming no stock limit for simplicity in UI, ideally checking availableQuantity
-                          >
+                           >
                             <Plus size={16} />
                           </button>
                         </div>

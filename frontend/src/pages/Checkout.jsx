@@ -230,14 +230,14 @@ const Checkout = () => {
                 {cart.map((item) => (
                   <li key={item.id} className="flex justify-between">
                     <div className="flex">
-                      <img src={item.image} alt={item.name} className="w-12 h-12 rounded-lg object-cover mr-3" />
+                      <img src={item.product.image} alt={item.product.name} className="w-12 h-12 rounded-lg object-cover mr-3" />
                       <div>
-                        <p className="font-bold text-gray-900 text-sm">{item.name}</p>
-                        <p className="text-xs text-gray-500 mt-1">Qty: {item.quantity} x ₹{item.price}</p>
+                        <p className="font-bold text-gray-900 text-sm">{item.product.name}</p>
+                        <p className="text-xs text-gray-500 mt-1">Qty: {item.quantity} x ₹{item.product.price}</p>
                       </div>
                     </div>
                     <div className="font-bold text-gray-900 text-sm">
-                      ₹{item.price * item.quantity}
+                      ₹{item.product.price * item.quantity}
                     </div>
                   </li>
                 ))}
